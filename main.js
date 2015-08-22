@@ -1,4 +1,6 @@
-var APP = function() {
+/* jshint -W079 */
+
+var APP = function () {
     "use strict";
 
     var appObj = {};
@@ -8,16 +10,16 @@ var APP = function() {
     var sorter;
     var testArray;
 
-    appObj.stepAnimate = function(){
+    appObj.stepAnimate = function () {
         testObj.changes = sorter.next();
-        if(testObj.changes.done === true){
+        if (testObj.changes.done === true) {
             APP.stopAnimate();
             return;
         }
         DRAW.render(testObj);
     };
 
-    appObj.beginAnimate = function(){
+    appObj.beginAnimate = function () {
         testArray = [];
 
         for (var i = 0; i < CONFIG.arraySize; i += 1) {
@@ -34,11 +36,11 @@ var APP = function() {
         intervalID = window.setInterval(APP.stepAnimate, CONFIG.timeStep);
     };
 
-    appObj.stopAnimate = function(){
+    appObj.stopAnimate = function () {
         window.clearInterval(intervalID);
     };
 
-    appObj.continueAnimate = function(){
+    appObj.continueAnimate = function () {
         intervalID = window.setInterval(APP.stepAnimate, CONFIG.timeStep);
     };
 

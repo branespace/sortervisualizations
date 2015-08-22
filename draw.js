@@ -1,3 +1,5 @@
+/* jshint -W079 */
+
 var DRAW = function () {
     "use strict";
 
@@ -20,13 +22,13 @@ var DRAW = function () {
 
     drawObj.render = function (testObj) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawGrid();
         for (var i = 0; i < CONFIG.arraySize; i += 1) {
-            drawBox(i, testObj.values[i], CONFIG.rectColor);
+            drawBoxRounded(i, testObj.values[i], CONFIG.rectColor);
         }
-        console.log(testObj);
-        drawBox(testObj.changes.value.target, testObj.values[testObj.changes.value.target], CONFIG.targetColor);
-        if(testObj.changes.value.important !== null){
-            drawBox(testObj.changes.value.important, testObj.values[testObj.changes.value.important], CONFIG.importantColor);
+        drawBoxRounded(testObj.changes.value.target, testObj.values[testObj.changes.value.target], CONFIG.targetColor);
+        if (testObj.changes.value.important !== null) {
+            drawBoxRounded(testObj.changes.value.important, testObj.values[testObj.changes.value.important], CONFIG.importantColor);
         }
         ctx.fillStyle = CONFIG.textColor;
         ctx.font = CONFIG.textFont;
@@ -42,6 +44,45 @@ var DRAW = function () {
         ypos = canvas.height - CONFIG.minimumPadding;
         height = Math.floor((canvas.height - rectWidth) * ((value / CONFIG.arraySize)) + rectWidth);
         ctx.fillRect(xpos, ypos, rectWidth, 0 - height);
+    }
+
+    function drawBoxRounded(index, value, color) {
+        var xpos;
+        var ypos;
+        var height;
+        var corner = CONFIG.cornerRadius;
+        xpos = actualPadding + index * (rectWidth + rectPad);
+        ypos = canvas.height - CONFIG.minimumPadding;
+        height = Math.floor((canvas.height - rectWidth) * ((value / CONFIG.arraySize)) + rectWidth);
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(xpos + corner, ypos);
+        ctx.lineTo(xpos + rectWidth - corner, ypos);
+        ctx.quadraticCurveTo(xpos + rectWidth, ypos, xpos + rectWidth, ypos - corner);
+        ctx.lineTo(xpos + rectWidth, ypos + corner - height);
+        ctx.quadraticCurveTo(xpos + rectWidth, ypos - height, xpos + rectWidth - corner, ypos - height);
+        ctx.lineTo(xpos + corner, ypos - height);
+        ctx.quadraticCurveTo(xpos, ypos - height, xpos, ypos - height + corner);
+        ctx.lineTo(xpos, ypos - corner);
+        ctx.quadraticCurveTo(xpos, ypos, xpos + corner, ypos);
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    function drawGrid(){
+        ctx.strokeStyle = CONFIG.gridColor;
+        for(var i = 0; i <= canvas.width; i += CONFIG.gridLineSpacing){
+            ctx.beginPath();
+            ctx.moveTo(i, 0);
+            ctx.lineTo(i, canvas.height);
+            ctx.stroke();
+        }
+        for (i = 0; i <= canvas.height; i += CONFIG.gridLineSpacing){
+            ctx.beginPath();
+            ctx.moveTo(0, i);
+            ctx.lineTo(canvas.width, i);
+            ctx.stroke();
+        }
     }
 
     return drawObj;
