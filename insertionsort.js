@@ -6,6 +6,7 @@ var INSERTIONSORT = function() {
     sortObj.sorter = function* sorter(sortArr){
         var j;
         var tempSpace;
+        var comparisons = 0;
         for(var i = 1; i < sortArr.length; i += 1){
             j = i;
             while (j > 0 && sortArr[j - 1] > sortArr[j]){
@@ -13,7 +14,8 @@ var INSERTIONSORT = function() {
                 sortArr[j - 1] = sortArr[j];
                 sortArr[j] = tempSpace;
                 j -= 1;
-                yield {target:j};
+                comparisons += 1;
+                yield {target:j, comparisons: comparisons};
             }
         }
         return false;

@@ -28,6 +28,9 @@ var DRAW = function () {
         if(testObj.changes.value.important !== null){
             drawBox(testObj.changes.value.important, testObj.values[testObj.changes.value.important], CONFIG.importantColor);
         }
+        ctx.fillStyle = CONFIG.textColor;
+        ctx.font = CONFIG.textFont;
+        ctx.fillText('Comparisons: ' + testObj.changes.value.comparisons, 25, 25);
     };
 
     function drawBox(index, value, color) {

@@ -6,19 +6,22 @@ var SELECTIONSORT = function() {
     sortObj.sorter = function* sorter(sortArr){
         var minimumIndex;
         var tempSpace;
+        var comparisons = 0;
         for (var i = 0; i < sortArr.length; i += 1){
             minimumIndex = i;
             for (var j = i + 1; j < sortArr.length; j += 1){
                 if(sortArr[minimumIndex] > sortArr[j]){
                     minimumIndex = j;
                 }
-                yield {important: minimumIndex, target: j};
+                comparisons += 1;
+                yield {important: minimumIndex, target: j, comparisons: comparisons};
             }
             if(minimumIndex !== i){
                 tempSpace = sortArr[minimumIndex];
                 sortArr[minimumIndex] = sortArr[i];
                 sortArr[i] = tempSpace;
-                yield {target: i};
+                comparisons += 1;
+                yield {target: i, comparisons: comparisons};
             }
         }
         return false;
