@@ -1,4 +1,4 @@
-var INSERTIONSORTER = function() {
+var INSERTIONSORT = function() {
     "use strict";
 
     var sortObj = {};
