@@ -19,6 +19,7 @@ var CONFIG = function () {
     confObj.rectColor = 'SteelBlue';
     confObj.targetColor = 'Red';
     confObj.importantColor = 'SeaGreen';
+    confObj.regionBorderColor = 'Black';
     confObj.gridColor = 'DarkGray';
     confObj.gridLineWidth = 1;
     confObj.gridLineSpacing = 100;

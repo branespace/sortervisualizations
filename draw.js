@@ -27,9 +27,17 @@ var DRAW = function () {
         for (var i = 0; i < CONFIG.arraySize; i += 1) {
             drawBoxRounded(i, testObj.values[i], CONFIG.rectColor);
         }
-        drawBoxRounded(testObj.changes.value.target, testObj.values[testObj.changes.value.target], CONFIG.targetColor);
+        if (testObj.changes.value.target !== null) {
+            drawBoxRounded(testObj.changes.value.target, testObj.values[testObj.changes.value.target], CONFIG.targetColor);
+        }
         if (testObj.changes.value.important !== null) {
             drawBoxRounded(testObj.changes.value.important, testObj.values[testObj.changes.value.important], CONFIG.importantColor);
+        }
+        if (testObj.changes.value.high !== null) {
+            drawBoxRounded(testObj.changes.value.high, testObj.values[testObj.changes.value.high], CONFIG.regionBorderColor);
+        }
+        if (testObj.changes.value.low !== null) {
+            drawBoxRounded(testObj.changes.value.low, testObj.values[testObj.changes.value.low], CONFIG.regionBorderColor);
         }
         ctx.fillStyle = CONFIG.textColor;
         ctx.font = CONFIG.textFont;
@@ -70,15 +78,15 @@ var DRAW = function () {
         ctx.fill();
     }
 
-    function drawGrid(){
+    function drawGrid() {
         ctx.strokeStyle = CONFIG.gridColor;
-        for(var i = 0; i <= canvas.width; i += CONFIG.gridLineSpacing){
+        for (var i = 0; i <= canvas.width; i += CONFIG.gridLineSpacing) {
             ctx.beginPath();
             ctx.moveTo(i, 0);
             ctx.lineTo(i, canvas.height);
             ctx.stroke();
         }
-        for (i = 0; i <= canvas.height; i += CONFIG.gridLineSpacing){
+        for (i = 0; i <= canvas.height; i += CONFIG.gridLineSpacing) {
             ctx.beginPath();
             ctx.moveTo(0, i);
             ctx.lineTo(canvas.width, i);

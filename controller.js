@@ -70,8 +70,8 @@ function setup() {
     function setValues(){
         CONFIG.sorter = SORTERS[algoSelect.options[algoSelect.selectedIndex].value];
         var numItems = parseInt(numberItems.value);
-        if(numItems > 200 || numItems < 10){
-            window.alert('Number of items must be between 10 and 200');
+        if(numItems > 200 || numItems < 5){
+            window.alert('Number of items must be between 5 and 200');
             return false;
         } else {
             CONFIG.arraySize = parseInt(numItems);
