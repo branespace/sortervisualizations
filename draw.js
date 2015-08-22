@@ -3,10 +3,6 @@ var DRAW = function () {
 
     var drawObj = {};
 
-    var numberOfLines;
-    var minimumPadding;
-    var percentRectPadding;
-
     var canvas = document.getElementById('drawfield');
     var ctx = canvas.getContext('2d');
     var rectWidth;
@@ -15,28 +11,31 @@ var DRAW = function () {
 
     ctx.fillStyle = 'white';
 
-    drawObj.initialize = function (testObj) {
-        numberOfLines = testObj.values.length;
-        CONFIG.minimumPadding = 20;
-        CONFIG.percentRectPadding = 0.20;
-
-        rectWidth = Math.floor((canvas.width - minimumPadding * 2) / (numberOfLines));
-        rectWidth = Math.floor(rectWidth * (1 - percentRectPadding));
-        rectPad = Math.floor(rectWidth * percentRectPadding);
-        actualPadding = (canvas.width - rectWidth * numberOfLines - rectPad * (numberOfLines - 1)) / 2;
+    drawObj.initialize = function () {
+        rectWidth = Math.floor((canvas.width - CONFIG.minimumPadding * 2) / (CONFIG.arraySize));
+        rectWidth = Math.floor(rectWidth * (1 - CONFIG.percentRectPadding));
+        rectPad = Math.floor(rectWidth * CONFIG.percentRectPadding);
+        actualPadding = (canvas.width - rectWidth * CONFIG.arraySize - rectPad * (CONFIG.arraySize - 1)) / 2;
     };
 
     drawObj.render = function (testObj) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (var i = 0; i < CONFIG.arraySize; i += 1) {
+            drawBox(i, testObj.values[i], CONFIG.rectColor);
+        }
+        drawBox(testObj.changedIndex.value, testObj.values[testObj.changedIndex.value], CONFIG.targetColor);
+    };
+
+    function drawBox(index, value, color) {
         var xpos;
         var ypos;
         var height;
-        for (var i = 0; i < numberOfLines; i += 1) {
-            xpos = actualPadding + i * (rectWidth + rectPad);
-            ypos = canvas.height - minimumPadding;
-            height = Math.floor((canvas.height - rectWidth) * ((testObj.values[i] / testObj.values.length)) + rectWidth);
-            ctx.fillRect(xpos, ypos, rectWidth, 0 - height);
-        }
-    };
+        ctx.fillStyle = color;
+        xpos = actualPadding + index * (rectWidth + rectPad);
+        ypos = canvas.height - CONFIG.minimumPadding;
+        height = Math.floor((canvas.height - rectWidth) * ((value / CONFIG.arraySize)) + rectWidth);
+        ctx.fillRect(xpos, ypos, rectWidth, 0 - height);
+    }
 
     return drawObj;
 }();
