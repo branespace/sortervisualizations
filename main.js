@@ -1,7 +1,4 @@
-//document.onload = function() {
-    //"use strict";
-
-    var arraySize = 20;
+    var arraySize = 10;
 
     var testArray = [];
 
@@ -11,9 +8,11 @@
 
     testArray = UTILITY.scramble(testArray);
 
+    var sorter = INSERTIONSORTER.sorter(testArray);
+    sorter.next();
+
     var testObj = {};
     testObj.values = testArray;
 
     DRAW.initialize(testObj);
     DRAW.render(testObj);
-//};
