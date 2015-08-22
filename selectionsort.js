@@ -1,11 +1,15 @@
 /* jshint -W079 */
 
-var SELECTIONSORT = function () {
+var SORTERS = SORTERS || [];
+
+(function () {
     "use strict";
 
     var sortObj = {};
 
-    sortObj.sorter = function* sorter(sortArr) {
+    sortObj.name = 'Selection Sort';
+
+    sortObj.sort = function* sort(sortArr) {
         var minimumIndex;
         var tempSpace;
         var comparisons = 0;
@@ -33,5 +37,5 @@ var SELECTIONSORT = function () {
         return false;
     };
 
-    return sortObj;
-}();
+    SORTERS.push(sortObj);
+})();

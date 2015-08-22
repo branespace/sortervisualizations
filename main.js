@@ -27,13 +27,13 @@ var APP = function () {
         }
 
         testArray = CONFIG.scramble(testArray);
-        sorter = CONFIG.sorter(testArray);
+        sorter = CONFIG.sorter.sort(testArray);
 
         testObj.values = testArray;
 
         DRAW.initialize();
         APP.stepAnimate();
-        intervalID = window.setInterval(APP.stepAnimate, CONFIG.timeStep);
+        appObj.registerInterval(APP.stepAnimate, CONFIG.timeStep);
     };
 
     appObj.stopAnimate = function () {
@@ -41,7 +41,16 @@ var APP = function () {
     };
 
     appObj.continueAnimate = function () {
-        intervalID = window.setInterval(APP.stepAnimate, CONFIG.timeStep);
+        appObj.registerInterval(APP.stepAnimate, CONFIG.timeStep);
+    };
+
+    appObj.startGrid = function () {
+        DRAW.initialize();
+    };
+
+    appObj.registerInterval = function (callback, time){
+        window.clearInterval(intervalID);
+        intervalID = window.setInterval(callback, time);
     };
 
     return appObj;

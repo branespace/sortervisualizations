@@ -1,11 +1,15 @@
 /* jshint -W079 */
 
-var INSERTIONSORT = function () {
+var SORTERS = SORTERS || [];
+
+(function () {
     "use strict";
 
     var sortObj = {};
 
-    sortObj.sorter = function* sorter(sortArr) {
+    sortObj.name = 'Insertion Sort';
+
+    sortObj.sort = function* sort(sortArr) {
         var j;
         var tempSpace;
         var comparisons = 0;
@@ -23,6 +27,6 @@ var INSERTIONSORT = function () {
         return false;
     };
 
-    return sortObj;
-}();
+    SORTERS.push(sortObj);
+})();
 

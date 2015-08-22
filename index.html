@@ -9,10 +9,30 @@
 <h1>Sorting Algorithms Visualized</h1>
 
 <div id="container">
-    <canvas id="drawfield" height="800" width="1200"></canvas>
-    <button id="start">Start Animation</button>
-    <button id="restart">Restart</button>
-    <button id="pause">Pause</button>
+    <div id="display">
+        <canvas id="drawfield" height="800" width="1200"></canvas>
+    </div>
+    <div id="config">
+        <h3>Configuration Options</h3>
+        <b>Selected Algorithm:</b>
+        <select id="algorithm">
+            <option id="none">None Selected</option>
+        </select>
+        <br/>
+        <br/>
+        <b>Time Step in ms</b>
+        <input type="text" id="timestep">
+        <br/>
+        <br/>
+        <b>Number of Items</b>
+        <input type="text" id="numberitems">
+        <br/>
+        <br/>
+        <button id="start">Start</button>
+        <button id="restart">Restart</button>
+        <button id="pause">Pause</button>
+        <button id="reset">Reset Settings</button>
+    </div>
 </div>
 <div id="errorbox">Sample Text</div>
 <script src="utility.js"></script>

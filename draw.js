@@ -18,6 +18,7 @@ var DRAW = function () {
         rectWidth = Math.floor(rectWidth * (1 - CONFIG.percentRectPadding));
         rectPad = Math.floor(rectWidth * CONFIG.percentRectPadding);
         actualPadding = (canvas.width - rectWidth * CONFIG.arraySize - rectPad * (CONFIG.arraySize - 1)) / 2;
+        drawGrid();
     };
 
     drawObj.render = function (testObj) {

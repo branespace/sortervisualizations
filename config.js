@@ -5,15 +5,17 @@ var CONFIG = function () {
 
     var confObj = {};
 
-    confObj.arraySize = 50;
+    confObj.defaultArraySize = 50;
+    confObj.arraySize = confObj.defaultArraySize;
 
     confObj.scramble = UTILITY.scramble;
-    confObj.sorter = SELECTIONSORT.sorter;
+    confObj.sorter = null;
 
     confObj.minimumPadding = 0;
     confObj.percentRectPadding = 0.20;
 
-    confObj.timeStep = 50;
+    confObj.defaultTimeStep = 50;
+    confObj.timeStep = confObj.defaultTimeStep;
     confObj.rectColor = 'SteelBlue';
     confObj.targetColor = 'Red';
     confObj.importantColor = 'SeaGreen';
