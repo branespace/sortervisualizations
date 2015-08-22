@@ -9,8 +9,8 @@ var APP = function() {
     var testArray;
 
     appObj.stepAnimate = function(){
-        testObj.changedIndex = sorter.next();
-        if(testObj.changedIndex.done === true){
+        testObj.changes = sorter.next();
+        if(testObj.changes.done === true){
             APP.stopAnimate();
             return;
         }
@@ -38,7 +38,9 @@ var APP = function() {
         window.clearInterval(intervalID);
     };
 
+    appObj.continueAnimate = function(){
+        intervalID = window.setInterval(APP.stepAnimate, CONFIG.timeStep);
+    };
+
     return appObj;
 }();
-    APP.beginAnimate();
-

@@ -13,7 +13,7 @@ var INSERTIONSORTER = function() {
                 sortArr[j - 1] = sortArr[j];
                 sortArr[j] = tempSpace;
                 j -= 1;
-                yield j;
+                yield {target:j};
             }
         }
         return false;

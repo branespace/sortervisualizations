@@ -23,7 +23,11 @@ var DRAW = function () {
         for (var i = 0; i < CONFIG.arraySize; i += 1) {
             drawBox(i, testObj.values[i], CONFIG.rectColor);
         }
-        drawBox(testObj.changedIndex.value, testObj.values[testObj.changedIndex.value], CONFIG.targetColor);
+        console.log(testObj);
+        drawBox(testObj.changes.value.target, testObj.values[testObj.changes.value.target], CONFIG.targetColor);
+        if(testObj.changes.value.important !== null){
+            drawBox(testObj.changes.value.important, testObj.values[testObj.changes.value.important], CONFIG.importantColor);
+        }
     };
 
     function drawBox(index, value, color) {

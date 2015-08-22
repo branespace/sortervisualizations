@@ -6,13 +6,21 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <h1>Sorting Algorithms Visualized</h1>
-    <div id="container"><canvas id="drawfield" height="600" width="800"></canvas></div>
-    <div id="errorbox">Sample Text</div>
-    <script src="utility.js"></script>
-    <script src="insertionsort.js"></script>
-    <script src="config.js"></script>
-    <script src="draw.js"></script>
-    <script src="main.js"></script>
+<h1>Sorting Algorithms Visualized</h1>
+
+<div id="container">
+    <canvas id="drawfield" height="600" width="800"></canvas>
+    <button id="start">Start Animation</button>
+    <button id="restart">Restart</button>
+    <button id="pause">Pause</button>
+</div>
+<div id="errorbox">Sample Text</div>
+<script src="utility.js"></script>
+<script src="insertionsort.js"></script>
+<script src="selectionsort.js"></script>
+<script src="config.js"></script>
+<script src="draw.js"></script>
+<script src="main.js"></script>
+<script src="controller.js"></script>
 </body>
 </html>
