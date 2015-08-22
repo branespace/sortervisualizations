@@ -1,0 +1,23 @@
+#container {
+    text-align: center;
+}
+
+canvas {
+    height: 600px;
+    width: 800px;
+    background-color: black;
+    padding: 10px;
+}
+
+#errorbox {
+    color: red;
+    font-size: 3em;
+    font-weight: bolder;
+    background-color: white;
+    border-radius: 5px;
+    position: absolute;
+    top: 150px;
+    left: 300px;
+    z-index: 11;
+    visibility: hidden;
+}
