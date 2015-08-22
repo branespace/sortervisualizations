@@ -17,8 +17,8 @@ var DRAW = function () {
 
     drawObj.initialize = function (testObj) {
         numberOfLines = testObj.values.length;
-        minimumPadding = 20;
-        percentRectPadding = 0.20;
+        CONFIG.minimumPadding = 20;
+        CONFIG.percentRectPadding = 0.20;
 
         rectWidth = Math.floor((canvas.width - minimumPadding * 2) / (numberOfLines));
         rectWidth = Math.floor(rectWidth * (1 - percentRectPadding));
@@ -38,25 +38,5 @@ var DRAW = function () {
         }
     };
 
-    drawObj.testDraw = function () {
-        var xpos;
-        var ypos;
-        var height;
-        for (var i = 0; i < numberOfLines; i += 1) {
-            xpos = actualPadding + i * (rectWidth + rectPad);
-            ypos = canvas.height - minimumPadding;
-            height = Math.floor((canvas.height - rectWidth) * (i / numberOfLines)) + rectWidth;
-            ctx.fillRect(xpos, ypos, rectWidth, 0 - height);
-        }
-    };
-
     return drawObj;
 }();
-
-//var testObj = {};
-//testObj.values = [3,2,1,4,0];
-
-//DRAW.initialize(testObj);
-//DRAW.render(testObj);
-
-//var testval = 2;

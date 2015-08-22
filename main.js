@@ -1,14 +1,13 @@
-    var arraySize = 10;
-
+var APP = function() {
     var testArray = [];
 
-    for(var i = 0; i < arraySize; i += 1){
+    for (var i = 0; i < CONFIG.arraySize; i += 1) {
         testArray.push(i);
     }
 
-    testArray = UTILITY.scramble(testArray);
+    testArray = CONFIG.scramble(testArray);
 
-    var sorter = INSERTIONSORTER.sorter(testArray);
+    var sorter = CONFIG.sorter(testArray);
     sorter.next();
 
     var testObj = {};
@@ -16,3 +15,5 @@
 
     DRAW.initialize(testObj);
     DRAW.render(testObj);
+
+}();
