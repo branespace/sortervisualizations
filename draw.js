@@ -27,17 +27,17 @@ var DRAW = function () {
         for (var i = 0; i < CONFIG.arraySize; i += 1) {
             drawBoxRounded(i, testObj.values[i], CONFIG.rectColor);
         }
-        if (testObj.changes.value.target !== null) {
-            drawBoxRounded(testObj.changes.value.target, testObj.values[testObj.changes.value.target], CONFIG.targetColor);
-        }
-        if (testObj.changes.value.important !== null) {
-            drawBoxRounded(testObj.changes.value.important, testObj.values[testObj.changes.value.important], CONFIG.importantColor);
-        }
         if (testObj.changes.value.high !== null) {
             drawBoxRounded(testObj.changes.value.high, testObj.values[testObj.changes.value.high], CONFIG.regionBorderColor);
         }
         if (testObj.changes.value.low !== null) {
             drawBoxRounded(testObj.changes.value.low, testObj.values[testObj.changes.value.low], CONFIG.regionBorderColor);
+        }
+        if (testObj.changes.value.important !== null) {
+            drawBoxRounded(testObj.changes.value.important, testObj.values[testObj.changes.value.important], CONFIG.importantColor);
+        }
+        if (testObj.changes.value.target !== null) {
+            drawBoxRounded(testObj.changes.value.target, testObj.values[testObj.changes.value.target], CONFIG.targetColor);
         }
         ctx.fillStyle = CONFIG.textColor;
         ctx.font = CONFIG.textFont;
