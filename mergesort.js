@@ -12,6 +12,7 @@ var SORTERS = SORTERS || [];
     var comparisons = 0;
 
     sortObj.sort = function* sort(sortArr) {
+        comparisons = 0;
         var i;
         var j;
         var merger;

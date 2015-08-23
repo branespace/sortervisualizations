@@ -12,6 +12,7 @@ var SORTERS = SORTERS || [];
     var comparisons = 0;
 
     sortObj.sort = function* sort(sortArr){
+        comparisons = 0;
         var qsort = quicksort(sortArr, 0, sortArr.length - 1);
         var value = qsort.next();
         while(!value.done) {
