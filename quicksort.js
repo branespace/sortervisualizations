@@ -7,7 +7,7 @@ var SORTERS = SORTERS || [];
 
     var sortObj = {};
 
-    sortObj.name = 'QuickSort';
+    sortObj.name = 'Quick Sort';
 
     var comparisons = 0;
 
