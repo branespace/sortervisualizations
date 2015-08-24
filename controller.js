@@ -1,6 +1,7 @@
 function setup() {
     "use strict";
 
+    var canvas = document.getElementById('drawfield');
     var startButton = document.getElementById('start');
     var restartButton = document.getElementById('restart');
     var pauseButton = document.getElementById('pause');
@@ -53,6 +54,11 @@ function setup() {
         }
         return 0;
     });
+
+    var ctx = canvas.getContext('2d');
+    ctx.width = canvas.scrollWidth;
+    canvas.height = Math.floor(canvas.width * (2 / 3));
+    ctx.height = canvas.height;
 
     algoSelect.remove(0);
     for (i = 0; i < SORTERS.length; i += 1) {

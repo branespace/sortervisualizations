@@ -7,21 +7,27 @@ body{
 #display {
     text-align: center;
     margin: 0;
-    width: 1250px;
-    float: left;
+    border: 0;
+    padding: 0;
+    width: auto;
+    overflow: hidden;
 }
 
 #container {
     margin: auto;
-    overflow: auto;
+    overflow: hidden;
     padding: 0;
-    width: 1654px;
+    border: 0;
+    width: 100%;
+    height: auto;
 }
 
 #config{
     margin: 0;
-    width: 400px;
-    float: left;
+    width: 200px;
+    float: right;
+    overflow: hidden;
+    padding: 5px;
 }
 
 select{
@@ -35,19 +41,7 @@ input{
 canvas {
     background-color: #E7E6FC;
     padding: 10px;
-}
-
-#errorbox {
-    color: red;
-    font-size: 3em;
-    font-weight: bolder;
-    background-color: white;
-    border-radius: 5px;
-    position: absolute;
-    top: 150px;
-    left: 300px;
-    z-index: 11;
-    visibility: hidden;
+    width: 95%;
 }
 
 h1 {
@@ -57,11 +51,11 @@ h1 {
 
 button {
     background: SteelBlue linear-gradient(to bottom, #3498db, #2980b9);
-    border-radius: 20px;
+    border-radius: 5px;
     font-family: sans-serif;
     color: #ffffff;
-    font-size: 18px;
-    padding: 5px 10px 5px 10px;
+    font-size: 14px;
+    padding: 2px 5px 2px 5px;
     text-decoration: none;
 }
 

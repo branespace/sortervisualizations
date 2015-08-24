@@ -59,7 +59,6 @@ var SORTERS = SORTERS || [];
         tempSpace = sortArr[p];
         sortArr[p] = sortArr[firstHigh];
         sortArr[firstHigh] = tempSpace;
-        console.log('part');
         yield {target: firstHigh, important: high, comparisons: comparisons, finished:true, low: low, high: high};
     }
 
