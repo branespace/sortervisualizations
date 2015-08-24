@@ -1,96 +1,117 @@
 /* jshint -W079 */
+// JSHint directive: DRAW defined here and JSHint Globals
 
+// Draws animation steps based on input testObject
 var DRAW = function () {
     "use strict";
 
-    var drawObj = {};
+    var drawObj = {},           // DRAW object
+        canvas = document.getElementById('drawfield'),  // Canvas object
+        canvasContext = canvas.getContext('2d'),        // Canvas context
+        rectangleWidth,         // width of single rectangle object
+        interRectanglePadding,  // inter-rectangle padding
+        sidePadding;            // left and right padding
 
-    var canvas = document.getElementById('drawfield');
-    var ctx = canvas.getContext('2d');
-    var rectWidth;
-    var rectPad;
-    var actualPadding;
-
-    ctx.fillStyle = 'white';
-
+    // Set sizing for rectangles, padding, and draw the grid
     drawObj.initialize = function () {
-        rectWidth = Math.floor((canvas.width - CONFIG.minimumPadding * 2) / (CONFIG.arraySize));
-        rectWidth = Math.floor(rectWidth * (1 - CONFIG.percentRectPadding));
-        rectPad = Math.floor(rectWidth * CONFIG.percentRectPadding);
-        actualPadding = (canvas.width - rectWidth * CONFIG.arraySize - rectPad * (CONFIG.arraySize - 1)) / 2;
+        rectangleWidth = Math.floor((canvas.width -
+            CONFIG.minimumPadding * 2) / (CONFIG.numberOfItems));
+        rectangleWidth = Math.floor(rectangleWidth *
+            (1 - CONFIG.percentRectPadding));
+        interRectanglePadding = Math.floor(rectangleWidth *
+            CONFIG.percentRectPadding);
+        sidePadding = (canvas.width - rectangleWidth * CONFIG.numberOfItems -
+            interRectanglePadding * (CONFIG.numberOfItems - 1)) / 2;
         drawGrid();
     };
 
-    drawObj.render = function (testObj) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Render a single framw of the animation
+    drawObj.render = function (stateObj) {
+
+        // Clear the canvas and draw a grid
+        canvasContext.clearRect(0, 0, canvas.width, canvas.height);
         drawGrid();
-        for (var i = 0; i < CONFIG.arraySize; i += 1) {
-            drawBoxRounded(i, testObj.values[i], CONFIG.rectColor);
+
+        for (var i = 0; i < CONFIG.numberOfItems; i += 1) {
+            drawBoxRounded(i, stateObj.values[i], CONFIG.rectColor);
         }
-        if (testObj.changes.value.high !== null) {
-            drawBoxRounded(testObj.changes.value.high, testObj.values[testObj.changes.value.high], CONFIG.regionBorderColor);
+
+        // Draw boundaries ( i.e. merge, quick)
+        if (stateObj.changes.value.high !== null) {
+            drawBoxRounded(stateObj.changes.value.high, stateObj
+                .values[stateObj.changes.value.high], CONFIG.regionBorderColor);
         }
-        if (testObj.changes.value.low !== null) {
-            drawBoxRounded(testObj.changes.value.low, testObj.values[testObj.changes.value.low], CONFIG.regionBorderColor);
+        if (stateObj.changes.value.low !== null) {
+            drawBoxRounded(stateObj.changes.value.low, stateObj
+                .values[stateObj.changes.value.low], CONFIG.regionBorderColor);
         }
-        if (testObj.changes.value.important !== null) {
-            drawBoxRounded(testObj.changes.value.important, testObj.values[testObj.changes.value.important], CONFIG.importantColor);
+
+        // Draw important values ( i.e. pivot, minimum value)
+        if (stateObj.changes.value.important !== null) {
+            drawBoxRounded(stateObj.changes.value.important, stateObj
+                    .values[stateObj.changes.value.important],
+                CONFIG.importantColor);
         }
-        if (testObj.changes.value.target !== null) {
-            drawBoxRounded(testObj.changes.value.target, testObj.values[testObj.changes.value.target], CONFIG.targetColor);
+
+        // Draw comparison target value
+        if (stateObj.changes.value.target !== null) {
+            drawBoxRounded(stateObj.changes.value.target, stateObj
+                .values[stateObj.changes.value.target], CONFIG.targetColor);
         }
-        ctx.fillStyle = CONFIG.textColor;
-        ctx.font = CONFIG.textFont;
-        ctx.fillText('Comparisons: ' + testObj.changes.value.comparisons, 25, 25);
+
+        canvasContext.fillStyle = CONFIG.textColor;
+        canvasContext.font = CONFIG.textFont;
+        canvasContext.fillText('Comparisons: ' + stateObj.changes.value.comparisons, 25, 25);
     };
 
-    function drawBox(index, value, color) {
-        var xpos;
-        var ypos;
-        var height;
-        ctx.fillStyle = color;
-        xpos = actualPadding + index * (rectWidth + rectPad);
-        ypos = canvas.height - CONFIG.minimumPadding;
-        height = Math.floor((canvas.height - rectWidth) * ((value / CONFIG.arraySize)) + rectWidth);
-        ctx.fillRect(xpos, ypos, rectWidth, 0 - height);
-    }
-
+    // Draw a rounded box with specified index, value (height), and color
     function drawBoxRounded(index, value, color) {
-        var xpos;
-        var ypos;
-        var height;
-        var corner = CONFIG.cornerRadius;
-        xpos = actualPadding + index * (rectWidth + rectPad);
-        ypos = canvas.height - CONFIG.minimumPadding;
-        height = Math.floor((canvas.height - rectWidth) * ((value / CONFIG.arraySize)) + rectWidth);
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.moveTo(xpos + corner, ypos);
-        ctx.lineTo(xpos + rectWidth - corner, ypos);
-        ctx.quadraticCurveTo(xpos + rectWidth, ypos, xpos + rectWidth, ypos - corner);
-        ctx.lineTo(xpos + rectWidth, ypos + corner - height);
-        ctx.quadraticCurveTo(xpos + rectWidth, ypos - height, xpos + rectWidth - corner, ypos - height);
-        ctx.lineTo(xpos + corner, ypos - height);
-        ctx.quadraticCurveTo(xpos, ypos - height, xpos, ypos - height + corner);
-        ctx.lineTo(xpos, ypos - corner);
-        ctx.quadraticCurveTo(xpos, ypos, xpos + corner, ypos);
-        ctx.closePath();
-        ctx.fill();
+        var xPos,       // X position of the bottom left corner
+            yPos,       // Y position of the bottom left corner
+            height,     // calculated height of the rectangle
+            corner = CONFIG.cornerRadius;   // radius of the rounded corners
+
+        // calculate height and positioning
+        xPos = sidePadding + index * (rectangleWidth + interRectanglePadding);
+        yPos = canvas.height - CONFIG.minimumPadding;
+        height = Math.floor((canvas.height - rectangleWidth) * ((value / CONFIG.numberOfItems)) + rectangleWidth);
+
+        // draw a rounded rectangle
+        canvasContext.fillStyle = color;
+        canvasContext.beginPath();
+        canvasContext.moveTo(xPos + corner, yPos);
+        canvasContext.lineTo(xPos + rectangleWidth - corner, yPos);
+        canvasContext.quadraticCurveTo(xPos + rectangleWidth, yPos,
+            xPos + rectangleWidth, yPos - corner);
+        canvasContext.lineTo(xPos + rectangleWidth, yPos + corner - height);
+        canvasContext.quadraticCurveTo(xPos + rectangleWidth, yPos - height,
+            xPos + rectangleWidth - corner, yPos - height);
+        canvasContext.lineTo(xPos + corner, yPos - height);
+        canvasContext.quadraticCurveTo(xPos, yPos - height,
+            xPos, yPos - height + corner);
+        canvasContext.lineTo(xPos, yPos - corner);
+        canvasContext.quadraticCurveTo(xPos, yPos, xPos + corner, yPos);
+        canvasContext.closePath();
+        canvasContext.fill();
     }
 
+    // Draw a basic grid on the canvas
     function drawGrid() {
-        ctx.strokeStyle = CONFIG.gridColor;
-        for (var i = 0; i <= canvas.width; i += CONFIG.gridLineSpacing) {
-            ctx.beginPath();
-            ctx.moveTo(i, 0);
-            ctx.lineTo(i, canvas.height);
-            ctx.stroke();
+        var i;      // generic loop index
+
+        canvasContext.strokeStyle = CONFIG.gridColor;
+
+        for (i = 0; i <= canvas.width; i += CONFIG.gridLineSpacing) {
+            canvasContext.beginPath();
+            canvasContext.moveTo(i, 0);
+            canvasContext.lineTo(i, canvas.height);
+            canvasContext.stroke();
         }
         for (i = 0; i <= canvas.height; i += CONFIG.gridLineSpacing) {
-            ctx.beginPath();
-            ctx.moveTo(0, i);
-            ctx.lineTo(canvas.width, i);
-            ctx.stroke();
+            canvasContext.beginPath();
+            canvasContext.moveTo(0, i);
+            canvasContext.lineTo(canvas.width, i);
+            canvasContext.stroke();
         }
     }
 

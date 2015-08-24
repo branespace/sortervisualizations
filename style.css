@@ -1,19 +1,15 @@
-body{
+body {
     background-color: #E4F0FB;
     color: #4A48B4;
     font-family: sans-serif;
 }
 
-#display {
+h1 {
     text-align: center;
-    margin: 0;
-    border: 0;
-    padding: 0;
-    width: auto;
-    overflow: hidden;
+    font-family: sans-serif;
 }
 
-#container {
+div#container {
     margin: auto;
     overflow: hidden;
     padding: 0;
@@ -22,7 +18,20 @@ body{
     height: auto;
 }
 
-#config{
+canvas#drawfield {
+    background-color: #E7E6FC;
+    padding: 10px;
+    width: 95%;
+}
+
+div#display {
+    text-align: center;
+    margin: 0;
+    width: auto;
+    overflow: hidden;
+}
+
+div#config {
     margin: 0;
     width: 200px;
     float: right;
@@ -30,23 +39,12 @@ body{
     padding: 5px;
 }
 
-select{
+select {
     width: 100%;
 }
 
-input{
+input {
     width: 100%;
-}
-
-canvas {
-    background-color: #E7E6FC;
-    padding: 10px;
-    width: 95%;
-}
-
-h1 {
-    text-align: center;
-    font-family: sans-serif;
 }
 
 button {

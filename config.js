@@ -1,34 +1,39 @@
 /* jshint -W079 */
+// JSHint directive: CONFIG defined here and JSHint Globals
 
+// CONFIG holds all basic configuration options
 var CONFIG = function () {
     "use strict";
 
-    var confObj = {};
+    var configObj = {};   // CONFIG object
 
-    confObj.defaultArraySize = 50;
-    confObj.arraySize = confObj.defaultArraySize;
+    // Number of items or size of array
+    configObj.numberOfItemsDefault = 50;
+    configObj.numberOfItems = configObj.numberOfItemsDefault;
 
-    confObj.scramble = UTILITY.scramble;
-    confObj.sorter = null;
+    // Holds our scramble and sort functions (sorter is a generator)
+    configObj.scramble = UTILITY.scramble;
+    configObj.sorter = null;
 
-    confObj.minimumPadding = 0;
-    confObj.percentRectPadding = 0.20;
+    // Default padding for the canvas and percent inter-rectangle padding
+    configObj.minimumPadding = 0;
+    configObj.percentRectPadding = 0.20;
 
-    confObj.defaultTimeStep = 50;
-    confObj.timeStep = confObj.defaultTimeStep;
-    confObj.rectColor = 'SteelBlue';
-    confObj.targetColor = 'Red';
-    confObj.importantColor = 'SeaGreen';
-    confObj.regionBorderColor = 'Black';
-    confObj.gridColor = 'DarkGray';
-    confObj.gridLineWidth = 1;
-    confObj.gridLineSpacing = 100;
+    // Animation settings
+    configObj.defaultTimeStep = 50;
+    configObj.timeStep = configObj.defaultTimeStep;
 
-    confObj.cornerRadius = 3;
+    // Drawing settings
+    configObj.rectColor = 'SteelBlue';
+    configObj.targetColor = 'Red';
+    configObj.importantColor = 'SeaGreen';
+    configObj.regionBorderColor = 'Black';
+    configObj.gridColor = 'DarkGray';
+    configObj.textColor = 'Black';
+    configObj.textFont = '18px monospace';
+    configObj.gridLineWidth = 1;
+    configObj.gridLineSpacing = 100;
+    configObj.cornerRadius = 3;
 
-    confObj.textColor = 'black';
-    confObj.textFont = '18px monospace';
-
-
-    return confObj;
+    return configObj;
 }();

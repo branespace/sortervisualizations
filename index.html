@@ -9,19 +9,20 @@
 <h1>Sorting Algorithms Visualized</h1>
 
 <div id="container">
+    <!-- Right column before left column to float them correctly -->
     <div id="config">
         <h3>Configuration Options</h3>
-        <b>Selected Algorithm:</b>
+        <label for="algorithm"><b>Selected Algorithm:</b></label>
         <select id="algorithm">
-            <option id="none">None Selected</option>
+            <option id="none" label="algorithm">None Selected</option>
         </select>
         <br/>
         <br/>
-        <b>Time Step in ms</b>
+        <label for="timestep"><b>Time Step in ms</b></label>
         <input type="text" id="timestep">
         <br/>
         <br/>
-        <b>Number of Items</b>
+        <label for="numberitems"><b>Number of Items</b></label>
         <input type="text" id="numberitems">
         <br/>
         <br/>
@@ -33,6 +34,7 @@
         <button id="reset">Reset Settings</button>
     </div>
     <div id="display">
+        <!-- Height and width of canvas affect only scale factor -->
         <canvas id="drawfield" height="800" width="1200"></canvas>
     </div>
 </div>
@@ -42,6 +44,7 @@
 <script src="mergesort.js"></script>
 <script src="insertionsort.js"></script>
 <script src="selectionsort.js"></script>
+<!-- Add new sorting algorithm files below above this line -->
 <script src="config.js"></script>
 <script src="draw.js"></script>
 <script src="main.js"></script>
