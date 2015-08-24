@@ -1,65 +1,70 @@
 /* jshint -W079 */
+// JSHint directive: SORTER redefined
 
 var SORTERS = SORTERS || [];
 
 (function () {
     "use strict";
 
-    var sortObj = {};
+    var sortObj = {},       // this sorting object
+        comparisons;        // number of comparisons performed
 
     sortObj.name = 'Quick Sort';
 
-    var comparisons = 0;
-
-    sortObj.sort = function* sort(sortArr){
+    sortObj.sort = function* sort(sortArray) {
         comparisons = 0;
-        var qsort = quicksort(sortArr, 0, sortArr.length - 1);
-        var value = qsort.next();
-        while(!value.done) {
+
+        // Initialize quicksort generator yield values until it ends
+        var qsort = quicksort(sortArray, 0, sortArray.length - 1),
+            value = qsort.next();
+        while (!value.done) {
             yield value.value;
             value = qsort.next();
         }
         return false;
     };
 
-    function* quicksort(sortArr, low, high){
-        var parter;
-        var part;
-        if ((high - low) > 0){
+    // Core quicksort algorithm
+    function* quicksort(sortArray, low, high) {
+        var partitioner,        // partitioning generator
+            newPartition;       // calculated partition return
+
+        if ((high - low) > 0) {
             comparisons += 1;
-            parter = partition(sortArr, low, high);
-            part = parter.next();
-            while(!part.value.finished) {
-                yield part.value;
-                part = parter.next();
+            partitioner = partition(sortArray, low, high);
+            newPartition = partitioner.next();
+
+            while (!newPartition.value.finished) {
+                yield newPartition.value;
+                newPartition = partitioner.next();
             }
-            yield part.value;
-            yield* quicksort(sortArr, low, part.value.target - 1);
-            yield* quicksort(sortArr, part.value.target + 1, high);
+
+            yield newPartition.value;
+            yield* quicksort(sortArray, low, newPartition.value.target - 1);
+            yield* quicksort(sortArray, newPartition.value.target + 1, high);
         }
     }
 
-    function* partition(sortArr, low, high){
-        var i;
-        var p;
-        var firstHigh;
-        var tempSpace;
-        p = high;
-        firstHigh = low;
-        for ( i = low; i < high; i += 1){
-            if(sortArr[i] < sortArr[p]){
-                tempSpace = sortArr[i];
-                sortArr[i] = sortArr[firstHigh];
-                sortArr[firstHigh] = tempSpace;
+    // Partitions the array
+    function* partition(sortArray, low, high) {
+        var i,                  // generic loop index
+            firstHigh = low;    // index of a high value
+        for (i = low; i < high; i += 1) {
+            if (sortArray[i] < sortArray[high]) {
+                UTILITY.swap(sortArray, i, firstHigh);
                 firstHigh += 1;
                 comparisons += 1;
             }
-            yield {target: i, important: high, comparisons: comparisons, finished:false, low: low, high: high};
+            yield {
+                target: i, important: high, comparisons: comparisons,
+                finished: false, low: low, high: high
+            };
         }
-        tempSpace = sortArr[p];
-        sortArr[p] = sortArr[firstHigh];
-        sortArr[firstHigh] = tempSpace;
-        yield {target: firstHigh, important: high, comparisons: comparisons, finished:true, low: low, high: high};
+        UTILITY.swap(sortArray, high, firstHigh);
+        yield {
+            target: firstHigh, important: high, comparisons: comparisons,
+            finished: true, low: low, high: high
+        };
     }
 
     SORTERS.push(sortObj);

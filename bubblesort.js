@@ -1,32 +1,34 @@
 /* jshint -W079 */
+// JSHint directive: SORTER redefined
 
 var SORTERS = SORTERS || [];
 
 (function () {
     "use strict";
 
-    var sortObj = {};
+    var sortObj = {},       // this sorting object
+        comparisons;        // number of comparisons performed
 
     sortObj.name = 'Bubble Sort';
 
-    var comparisons = 0;
+    sortObj.sort = function* sort(sortArray) {
+        var length = sortArray.length,  // cache array length
+            swapped = true;             // boolean: did we do a swap?
 
-    sortObj.sort = function* sort(sortArr){
         comparisons = 0;
-        var n = sortArr.length;
-        var swapped = true;
-        var tempSpace;
-        while(swapped){
+
+        while (swapped) {
             swapped = false;
-            for(var i = 1; i <= n - 1; i += 1){
-                yield {target:i, comparisons:comparisons};
+            for (var i = 1; i <= length - 1; i += 1) {
+                yield {target: i, comparisons: comparisons};
                 comparisons += 1;
-                if(sortArr[i - 1] > sortArr[i]){
-                    tempSpace = sortArr[i];
-                    sortArr[i] = sortArr[i - 1];
-                    sortArr[i - 1] = tempSpace;
+                if (sortArray[i - 1] > sortArray[i]) {
+                    UTILITY.swap(sortArray, i, i - 1);
                     swapped = true;
-                    yield {target:i, comparisons:comparisons};
+                    yield {
+                        target: i, important: i - 1,
+                        comparisons: comparisons
+                    };
                 }
             }
         }
@@ -34,6 +36,7 @@ var SORTERS = SORTERS || [];
         return false;
     };
 
+    // Add this to SORTERS list
     SORTERS.push(sortObj);
 })();
 

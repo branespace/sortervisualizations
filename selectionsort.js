@@ -1,22 +1,24 @@
 /* jshint -W079 */
+// JSHint directive: SORTER redefined
 
 var SORTERS = SORTERS || [];
 
 (function () {
     "use strict";
 
-    var sortObj = {};
+    var sortObj = {},       // this sorting object
+        comparisons;        // number of comparisons performed
 
     sortObj.name = 'Selection Sort';
 
-    sortObj.sort = function* sort(sortArr) {
-        var minimumIndex;
-        var tempSpace;
-        var comparisons = 0;
-        for (var i = 0; i < sortArr.length; i += 1) {
+    sortObj.sort = function* sort(sortArray) {
+        var minimumIndex;   // index of smallest value
+
+        comparisons = 0;
+        for (var i = 0; i < sortArray.length; i += 1) {
             minimumIndex = i;
-            for (var j = i + 1; j < sortArr.length; j += 1) {
-                if (sortArr[minimumIndex] > sortArr[j]) {
+            for (var j = i + 1; j < sortArray.length; j += 1) {
+                if (sortArray[minimumIndex] > sortArray[j]) {
                     minimumIndex = j;
                 }
                 comparisons += 1;
@@ -27,9 +29,7 @@ var SORTERS = SORTERS || [];
                 };
             }
             if (minimumIndex !== i) {
-                tempSpace = sortArr[minimumIndex];
-                sortArr[minimumIndex] = sortArr[i];
-                sortArr[i] = tempSpace;
+                UTILITY.swap(sortArray, i, minimumIndex);
                 comparisons += 1;
                 yield {target: i, comparisons: comparisons};
             }
