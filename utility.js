@@ -9,7 +9,9 @@ var UTILITY = function () {
 
     // Scrambles target array
     utilityObj.scramble = function scramble(targetArray) {
-        var targetIndex;    // swap target index
+        var targetIndex,    // swap target index
+            i,              // generic loop index
+            length;         // generic loop length
 
         if (targetArray.length < 2) {
             return targetArray;
@@ -19,10 +21,10 @@ var UTILITY = function () {
             return targetArray.reverse();
         }
 
-        for (var i = 0; i < targetArray.length; i += 1) {
-            targetIndex = Math.floor(Math.random() * targetArray.length);
+        for (i = 0, length = targetArray.length; i < length; i += 1) {
+            targetIndex = Math.floor(Math.random() * length);
             while (targetIndex === i) {
-                targetIndex = Math.floor(Math.random() * targetArray.length);
+                targetIndex = Math.floor(Math.random() * length);
             }
             utilityObj.swap(targetArray, i, targetIndex);
         }

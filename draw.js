@@ -27,12 +27,14 @@ var DRAW = function () {
 
     // Render a single framw of the animation
     drawObj.render = function (stateObj) {
+        var i,      // generic loop index
+            length; // generic loop length
 
         // Clear the canvas and draw a grid
         canvasContext.clearRect(0, 0, canvas.width, canvas.height);
         drawGrid();
 
-        for (var i = 0; i < CONFIG.numberOfItems; i += 1) {
+        for (i = 0, length = CONFIG.numberOfItems; i < length; i += 1) {
             drawBoxRounded(i, stateObj.values[i], CONFIG.rectColor);
         }
 
@@ -97,17 +99,18 @@ var DRAW = function () {
 
     // Draw a basic grid on the canvas
     function drawGrid() {
-        var i;      // generic loop index
+        var i,      // generic loop index
+            length; // generic loop length
 
         canvasContext.strokeStyle = CONFIG.gridColor;
 
-        for (i = 0; i <= canvas.width; i += CONFIG.gridLineSpacing) {
+        for (i = 0, length = canvas.width; i <= length; i += CONFIG.gridLineSpacing) {
             canvasContext.beginPath();
             canvasContext.moveTo(i, 0);
             canvasContext.lineTo(i, canvas.height);
             canvasContext.stroke();
         }
-        for (i = 0; i <= canvas.height; i += CONFIG.gridLineSpacing) {
+        for (i = 0, length = canvas.height; i <= length; i += CONFIG.gridLineSpacing) {
             canvasContext.beginPath();
             canvasContext.moveTo(0, i);
             canvasContext.lineTo(canvas.width, i);

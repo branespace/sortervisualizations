@@ -24,11 +24,12 @@ var APP = function () {
 
     // Initialize array, drawing, and timers
     appObj.beginAnimate = function () {
-        var i;      // generic loop index
+        var i,      // generic loop index
+            length; // generic loop length
 
         testArray = [];
 
-        for (i = 0; i < CONFIG.numberOfItems; i += 1) {
+        for (i = 0, length = CONFIG.numberOfItems; i < length; i += 1) {
             testArray.push(i);
         }
 

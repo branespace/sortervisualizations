@@ -12,7 +12,8 @@ function setup() {
         algorithmSelect = document.getElementById('algorithm'),
         timeStepInput = document.getElementById('timestep'),
         numberItemsInput = document.getElementById('numberitems'),
-        i;      //Generic loop index
+        i,      //Generic loop index
+        length; //Loop length cache
 
     startButton.addEventListener('click', function (event) {
         event.stopPropagation();
@@ -61,7 +62,7 @@ function setup() {
 
     // Remove default entry and propagate configuration input form
     algorithmSelect.remove(0);
-    for (i = 0; i < SORTERS.length; i += 1) {
+    for (i = 0, length = SORTERS.length; i < length; i += 1) {
         var newOption = document.createElement('option');
         newOption.value = i;
         newOption.text = SORTERS[i].name;
