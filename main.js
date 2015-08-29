@@ -12,7 +12,7 @@ var APP = function () {
         testArray;          // sorting array
 
     // Single animation step
-    appObj.stepAnimate = function () {
+    appObj.stepAnimate = function stepAnimate() {
         // Our sorters are generators, so get next
         stateObj.changes = sorter.next();
         if (stateObj.changes.done === true) {
@@ -23,7 +23,7 @@ var APP = function () {
     };
 
     // Initialize array, drawing, and timers
-    appObj.beginAnimate = function () {
+    appObj.beginAnimate = function beginAnimate() {
         var i,      // generic loop index
             length; // generic loop length
 
@@ -44,22 +44,22 @@ var APP = function () {
         appObj.registerInterval(APP.stepAnimate, CONFIG.timeStep);
     };
 
-    appObj.stopAnimate = function () {
+    appObj.stopAnimate = function stopAnimate() {
         window.clearInterval(intervalID);
     };
 
     // Restarts paused animation
-    appObj.continueAnimate = function () {
+    appObj.continueAnimate = function continueAnimate() {
         appObj.registerInterval(APP.stepAnimate, CONFIG.timeStep);
     };
 
     // Initializes the field
-    appObj.startGrid = function () {
+    appObj.startGrid = function startGrid() {
         DRAW.initialize();
     };
 
     // Ensures we have only one timer running
-    appObj.registerInterval = function (callback, time) {
+    appObj.registerInterval = function registerInterval(callback, time) {
         window.clearInterval(intervalID);
         intervalID = window.setInterval(callback, time);
     };

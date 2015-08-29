@@ -15,7 +15,7 @@ function setup() {
         i,      //Generic loop index
         length; //Loop length cache
 
-    startButton.addEventListener('click', function (event) {
+    startButton.addEventListener('click', function start(event) {
         event.stopPropagation();
         pauseButton.textContent = 'Pause';
         var newConfigValidated = setValues();
@@ -24,14 +24,14 @@ function setup() {
         }
     });
 
-    restartButton.addEventListener('click', function (event) {
+    restartButton.addEventListener('click', function restart(event) {
         event.stopPropagation();
         pauseButton.textContent = 'Pause';
         APP.stopAnimate();
         APP.beginAnimate();
     });
 
-    pauseButton.addEventListener('click', function (event) {
+    pauseButton.addEventListener('click', function pause(event) {
         event.stopPropagation();
         if (pauseButton.textContent === 'Pause') {
             APP.stopAnimate();
@@ -42,7 +42,7 @@ function setup() {
         }
     });
 
-    resetButton.addEventListener('click', function (event) {
+    resetButton.addEventListener('click', function reset(event) {
         event.stopPropagation();
         algorithmSelect.selectedIndex = 0;
         timeStepInput.value = CONFIG.defaultTimeStep;
@@ -50,7 +50,7 @@ function setup() {
     });
 
     // Comparator to a-z increasing sort sorting algorithms
-    SORTERS.sort(function (algorithmA, algorithmB) {
+    SORTERS.sort(function sortAlgorithms(algorithmA, algorithmB) {
         if (algorithmA.name < algorithmB.name) {
             return -1;
         }

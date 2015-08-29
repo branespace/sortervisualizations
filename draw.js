@@ -25,8 +25,8 @@ var DRAW = function () {
         drawGrid();
     };
 
-    // Render a single framw of the animation
-    drawObj.render = function (stateObj) {
+    // Render a single frame of the animation
+    drawObj.render = function render(stateObj) {
         var i,      // generic loop index
             length; // generic loop length
 
