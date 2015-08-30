@@ -35,14 +35,14 @@ var DRAW = function () {
         canvasContext.clearRect(0, 0, canvas.width, canvas.height);
         drawGrid();
 
-        rectArray = stateObj.values.map(function (value, index){
-            if (index === stateObj.changes.value.high){
+        rectArray = stateObj.values.map(function (value, index) {
+            if (index === stateObj.changes.value.high) {
                 return CONFIG.regionBorderColor;
-            } else if (index === stateObj.changes.value.low){
+            } else if (index === stateObj.changes.value.low) {
                 return CONFIG.regionBorderColor;
-            } else if (index === stateObj.changes.value.important){
+            } else if (index === stateObj.changes.value.important) {
                 return CONFIG.importantColor;
-            } else if (index === stateObj.changes.value.target){
+            } else if (index === stateObj.changes.value.target) {
                 return CONFIG.targetColor;
             }
             return CONFIG.rectColor;
@@ -51,29 +51,6 @@ var DRAW = function () {
         for (i = 0, length = CONFIG.numberOfItems; i < length; i += 1) {
             drawBoxRounded(i, stateObj.values[i], rectArray[i]);
         }
-
-/*        // Draw boundaries ( i.e. merge, quick)
-        if (stateObj.changes.value.high !== null) {
-            drawBoxRounded(stateObj.changes.value.high, stateObj
-                .values[stateObj.changes.value.high], CONFIG.regionBorderColor);
-        }
-        if (stateObj.changes.value.low !== null) {
-            drawBoxRounded(stateObj.changes.value.low, stateObj
-                .values[stateObj.changes.value.low], CONFIG.regionBorderColor);
-        }
-
-        // Draw important values ( i.e. pivot, minimum value)
-        if (stateObj.changes.value.important !== null) {
-            drawBoxRounded(stateObj.changes.value.important, stateObj
-                    .values[stateObj.changes.value.important],
-                CONFIG.importantColor);
-        }
-
-        // Draw comparison target value
-        if (stateObj.changes.value.target !== null) {
-            drawBoxRounded(stateObj.changes.value.target, stateObj
-                .values[stateObj.changes.value.target], CONFIG.targetColor);
-        }*/
 
         canvasContext.fillStyle = CONFIG.textColor;
         canvasContext.font = CONFIG.textFont;
@@ -120,15 +97,12 @@ var DRAW = function () {
 
         canvasContext.beginPath();
         for (i = 0, length = canvas.width; i <= length; i += CONFIG.gridLineSpacing) {
-
             canvasContext.moveTo(i, 0);
             canvasContext.lineTo(i, canvas.height);
-
         }
         canvasContext.stroke();
         canvasContext.beginPath();
         for (i = 0, length = canvas.height; i <= length; i += CONFIG.gridLineSpacing) {
-
             canvasContext.moveTo(0, i);
             canvasContext.lineTo(canvas.width, i);
         }
