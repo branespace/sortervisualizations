@@ -28,17 +28,31 @@ var DRAW = function () {
     // Render a single frame of the animation
     drawObj.render = function render(stateObj) {
         var i,      // generic loop index
-            length; // generic loop length
+            length, // generic loop length
+            rectArray;  // color array
 
         // Clear the canvas and draw a grid
         canvasContext.clearRect(0, 0, canvas.width, canvas.height);
         drawGrid();
 
+        rectArray = stateObj.values.map(function (value, index){
+            if (index === stateObj.changes.value.high){
+                return CONFIG.regionBorderColor;
+            } else if (index === stateObj.changes.value.low){
+                return CONFIG.regionBorderColor;
+            } else if (index === stateObj.changes.value.important){
+                return CONFIG.importantColor;
+            } else if (index === stateObj.changes.value.target){
+                return CONFIG.targetColor;
+            }
+            return CONFIG.rectColor;
+        });
+
         for (i = 0, length = CONFIG.numberOfItems; i < length; i += 1) {
-            drawBoxRounded(i, stateObj.values[i], CONFIG.rectColor);
+            drawBoxRounded(i, stateObj.values[i], rectArray[i]);
         }
 
-        // Draw boundaries ( i.e. merge, quick)
+/*        // Draw boundaries ( i.e. merge, quick)
         if (stateObj.changes.value.high !== null) {
             drawBoxRounded(stateObj.changes.value.high, stateObj
                 .values[stateObj.changes.value.high], CONFIG.regionBorderColor);
@@ -59,7 +73,7 @@ var DRAW = function () {
         if (stateObj.changes.value.target !== null) {
             drawBoxRounded(stateObj.changes.value.target, stateObj
                 .values[stateObj.changes.value.target], CONFIG.targetColor);
-        }
+        }*/
 
         canvasContext.fillStyle = CONFIG.textColor;
         canvasContext.font = CONFIG.textFont;
@@ -104,18 +118,21 @@ var DRAW = function () {
 
         canvasContext.strokeStyle = CONFIG.gridColor;
 
+        canvasContext.beginPath();
         for (i = 0, length = canvas.width; i <= length; i += CONFIG.gridLineSpacing) {
-            canvasContext.beginPath();
+
             canvasContext.moveTo(i, 0);
             canvasContext.lineTo(i, canvas.height);
-            canvasContext.stroke();
+
         }
+        canvasContext.stroke();
+        canvasContext.beginPath();
         for (i = 0, length = canvas.height; i <= length; i += CONFIG.gridLineSpacing) {
-            canvasContext.beginPath();
+
             canvasContext.moveTo(0, i);
             canvasContext.lineTo(canvas.width, i);
-            canvasContext.stroke();
         }
+        canvasContext.stroke();
     }
 
     return drawObj;

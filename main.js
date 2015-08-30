@@ -19,7 +19,9 @@ var APP = function () {
             APP.stopAnimate();
             return;
         }
-        DRAW.render(stateObj);
+        window.requestAnimationFrame(function () {
+            DRAW.render(stateObj);
+        });
     };
 
     // Initialize array, drawing, and timers
