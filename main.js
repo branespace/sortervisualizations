@@ -17,6 +17,7 @@ var APP = function () {
         stateObj.changes = sorter.next();
         if (stateObj.changes.done === true) {
             APP.stopAnimate();
+            document.getElementById('pause').style.visibility = 'hidden';
             return;
         }
         window.requestAnimationFrame(function () {
@@ -28,6 +29,8 @@ var APP = function () {
     appObj.beginAnimate = function beginAnimate() {
         var i,      // generic loop index
             length; // generic loop length
+
+        document.getElementById('pause').style.visibility = 'visible';
 
         testArray = [];
 
@@ -53,6 +56,7 @@ var APP = function () {
     // Restarts paused animation
     appObj.continueAnimate = function continueAnimate() {
         appObj.registerInterval(APP.stepAnimate, CONFIG.timeStep);
+        document.getElementById('pause').style.visibility = 'visible';
     };
 
     // Initializes the field

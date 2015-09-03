@@ -24,12 +24,24 @@ function setup() {
         }
     });
 
+    document.addEventListener('keypress', function(event) {
+        if (event.keyCode === 13) {
+            if(pauseButton.style.visibility === 'hidden') {
+                startButton.click();
+            } else {
+                pauseButton.click();
+            }
+        }
+    });
+
     restartButton.addEventListener('click', function restart(event) {
         event.stopPropagation();
         pauseButton.textContent = 'Pause';
         APP.stopAnimate();
         APP.beginAnimate();
     });
+
+    pauseButton.style.visibility = 'hidden';
 
     pauseButton.addEventListener('click', function pause(event) {
         event.stopPropagation();
